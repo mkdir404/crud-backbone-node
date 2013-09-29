@@ -36,7 +36,7 @@ mongoose.connect('mongodb://localhost/cmsblog', function(err, res) {
 	}
 });
 
-server.listen(3000,function(){
-	console.log('Node server running on http://localhots:3000');
+server.listen(8888,function(){
+	console.log('Node server running on http://localhots:8888');
 });
 

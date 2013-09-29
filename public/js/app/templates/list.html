@@ -1,6 +1,16 @@
-<button class="btn pull-right btn-primary">Agregar</button>
 
- <h1>Template para los grid</h1>
+
+ <h1>Usuario</h1>
+
+<div class="pull-right span4">
+  <button class="btn btn-primary pull-right"  style="margin-left:10px;" data-toggle="modal" href="#myModal" >Agregar</button>
+  <form class="form-search pull-right">
+    <div class="input-append">
+      <input type="text" class="span2 search-query">
+      <button type="submit" class="btn">Search</button>
+    </div>
+</form>
+</div>
 
 <table  class="table table-hover">
 
@@ -53,22 +63,61 @@
       </ul>
     </div>
 
-    <a data-toggle="modal" href="#myModal" >Thanks to...</a>
 
-      <div class="modal hide" id="myModal">
+
+<div class="modal hide" id="myModal">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Thank's To...</h3>
+    <h3>Alta de Usuario</h3>
   </div>
-    <div class="modal-body">
-      Ejmplo
-    </div>
-    <div class="modal-footer">
-      <a href="#" class="btn" data-dismiss="modal">Close</a>
-    </div>
+  <div class="modal-body">
+
+    <!-- Comienza formulario -->
+      <form action="" enctype="multipart/form-data" method="post">
+        <fieldset>
+          <label>Nombre</label>
+          <input type="text" class = "input-large">
+           <label>Username</label>
+          <input type="text" >
+           <label>Password</label>
+          <input type="password">
+          <label>Confirmar Password</label>
+          <input type="password">
+           <label>Email</label>
+          <input type="text" >
+           <label>Genero</label>
+          <select name="genero" id="">
+            <option value="hombre">Hombre</option>
+            <option value="mujer">Mujer</option>
+          </select>
+          <label>Foto</label>
+         <input type="file" class="filestyle" data-classButton="btn btn-primary" data-input="false">
+          <label>Fecha de nacimiento</label>
+          <select name="" id="" class="span1">
+            <option value="0">Dia</option>
+          </select>
+           <select name="" id="" class="span1">
+            <option value="0">Mes</option>
+          </select>
+           <select name="" id="" class="span1">
+            <option value="0">Año</option>
+          </select>
+          <label>Rol</label>
+          <select name="" id="">
+            <option value="1">Administrador</option>
+          </select>
+        </fieldset>
+   
+    <!-- Termina formulario -->
+  
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn">Submit</button>
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
   </div>
 
+   </form>
 
-
+</div>
 
 
