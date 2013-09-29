@@ -1,0 +1,74 @@
+<button class="btn pull-right btn-primary">Agregar</button>
+
+ <h1>Template para los grid</h1>
+
+<table  class="table table-hover">
+
+   <tr>
+    <th></th>
+    <th></th>
+    <th>Username</th>
+    <th>Nombre</th>
+    <th>Email</th>
+    <th>Rol</th>
+    <th>Publicaciones</th>
+   </tr>
+<% _.each (projects , function(listItem){ %>
+   <tr>
+      <td><input type="checkbox" name="_id" value="<%- listItem._id %>"> </td>
+      <td><%- listItem.foto %></td>
+      <td><%- listItem.username %></td>
+      
+      <td><%- listItem.nombre + ' ' + 
+              listItem.apellido_paterno + ' ' +
+              listItem.apellido_materno  %></td>
+      
+      <td><%- listItem.email %></td>
+      <td><%- listItem.rol_k %></td>
+      <td>1</td>
+   </tr>
+<% }); %>   
+
+</table>
+
+      <ul class="pagination pull-right">
+        <li>
+          <a href="#">Prev</a>
+        </li>
+        <li>
+          <a href="#">1</a>
+        </li>
+        <li>
+          <a href="#">2</a>
+        </li>
+        <li>
+          <a href="#">3</a>
+        </li>
+        <li>
+          <a href="#">4</a>
+        </li>
+        <li>
+          <a href="#">Next</a>
+        </li>
+      </ul>
+    </div>
+
+    <a data-toggle="modal" href="#myModal" >Thanks to...</a>
+
+      <div class="modal hide" id="myModal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Thank's To...</h3>
+  </div>
+    <div class="modal-body">
+      Ejmplo
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn" data-dismiss="modal">Close</a>
+    </div>
+  </div>
+
+
+
+
+
