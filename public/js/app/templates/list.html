@@ -22,11 +22,12 @@
     <th>Email</th>
     <th>Rol</th>
     <th>Publicaciones</th>
+    <th></th>
    </tr>
 <% _.each (projects , function(listItem){ %>
    <tr>
       <td><input type="checkbox" name="_id" value="<%- listItem._id %>"> </td>
-      <td><%- listItem.foto %></td>
+      <td><%- listItem._id %></td>
       <td><%- listItem.username %></td>
       
       <td><%- listItem.nombre + ' ' + 
@@ -36,6 +37,7 @@
       <td><%- listItem.email %></td>
       <td><%- listItem.rol_k %></td>
       <td>1</td>
+      <td><i class="icon-remove"></i><i class="icon-edit"></i></td>
    </tr>
 <% }); %>   
 
@@ -73,37 +75,37 @@
   <div class="modal-body">
 
     <!-- Comienza formulario -->
-      <form action="" enctype="multipart/form-data" method="post">
+      <form class="edit-user-form">
         <fieldset>
           <label>Nombre</label>
-          <input type="text" class = "input-large">
+          <input name="nombre" id="nombre" type="text">
            <label>Username</label>
-          <input type="text" >
+          <input name="username" id="username" type="text" >
            <label>Password</label>
-          <input type="password">
+          <input name="password " id="password" type="password" >
           <label>Confirmar Password</label>
-          <input type="password">
+          <input name="conf-password" id="conf-password" type="password" >
            <label>Email</label>
-          <input type="text" >
+          <input name="email" id="email" type="text" >
            <label>Genero</label>
-          <select name="genero" id="">
+          <select name="genero" id="genero">
             <option value="hombre">Hombre</option>
             <option value="mujer">Mujer</option>
           </select>
           <label>Foto</label>
          <input type="file" class="filestyle" data-classButton="btn btn-primary" data-input="false">
           <label>Fecha de nacimiento</label>
-          <select name="" id="" class="span1">
-            <option value="0">Dia</option>
+          <select name="dia" id="dia" class="span1">
+            <option value="1">Dia</option>
           </select>
-           <select name="" id="" class="span1">
-            <option value="0">Mes</option>
+           <select name="mes" id="mes" class="span1">
+            <option value="Enero">Mes</option>
           </select>
-           <select name="" id="" class="span1">
-            <option value="0">Año</option>
+           <select name="anno" id="anno" class="span1">
+            <option value="1986">Año</option>
           </select>
           <label>Rol</label>
-          <select name="" id="">
+          <select name="rol" id="rol">
             <option value="1">Administrador</option>
           </select>
         </fieldset>
