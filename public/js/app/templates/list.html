@@ -3,7 +3,9 @@
  <h1>Usuario</h1>
 
 <div class="pull-right span4">
+
   <button class="btn btn-primary pull-right"  style="margin-left:10px;" data-toggle="modal" href="#myModal" >Agregar</button>
+   <button class="btn btn-primary pull-right  saveAll">Save All</button>
   <form class="form-search pull-right">
     <div class="input-append">
       <input type="text" class="span2 search-query">
@@ -24,45 +26,41 @@
     <th>Publicaciones</th>
     <th></th>
    </tr>
+
+<% contt=1 %>
 <% _.each (projects , function(listItem){ %>
    <tr>
-      <td><input type="checkbox" name="_id" value="<%- listItem._id %>"> </td>
-      <td><%- listItem._id %></td>
+
+    
+      <td><input type="checkbox" name="id-user" class="id-user" value="<%- listItem._id %>"> </td>
+      <td><% listItem._id %></td>
       <td><%- listItem.username %></td>
       
-      <td><%- listItem.nombre + ' ' + 
+      <td><% listItem.nombre + ' ' + 
               listItem.apellido_paterno + ' ' +
               listItem.apellido_materno  %></td>
       
       <td><%- listItem.email %></td>
       <td><%- listItem.rol_k %></td>
       <td>1</td>
-      <td><i class="icon-remove"></i><i class="icon-edit"></i></td>
+      <td><i class="icon-remove" id="<%- listItem._id %>" ></i><i id="<%- listItem._id %>" class="icon-edit edit-user"></i></td>
    </tr>
+
 <% }); %>   
 
 </table>
 
-      <ul class="pagination pull-right">
-        <li>
-          <a href="#">Prev</a>
-        </li>
-        <li>
-          <a href="#">1</a>
-        </li>
-        <li>
-          <a href="#">2</a>
-        </li>
-        <li>
-          <a href="#">3</a>
-        </li>
-        <li>
-          <a href="#">4</a>
-        </li>
-        <li>
-          <a href="#">Next</a>
-        </li>
-      </ul>
+<% cont=1 %>
+<% totalRows %>
+<ul class="pagination pull-right">
+<a class='nav-pag' id='prev' href="#">Prev</a>
+  <% _.each (projects , function(listItem){ %>
+      <% if(cont <= totalRows-1 ){ %>       
+           <li><a class="per-page" href="#" id="<%- (cont-1)*perPage %>"><%- cont++ %></a></li>
+      <% } %>
+      <% }); %> 
+  <a class='nav-pag' id='next' href="#">Next</a>  
+</ul>
     </div>
 
 
@@ -75,7 +73,7 @@
   <div class="modal-body">
 
     <!-- Comienza formulario -->
-      <form class="edit-user-form">
+      <form class="formulario-usuarios">
         <fieldset>
           <label>Nombre</label>
           <input name="nombre" id="nombre" type="text">
@@ -114,7 +112,7 @@
   
   </div>
   <div class="modal-footer">
-    <button type="submit" class="btn">Submit</button>
+    <button type="submit" class="btn btn-form-users">Submit</button>
     <a href="#" class="btn" data-dismiss="modal">Close</a>
   </div>
 
