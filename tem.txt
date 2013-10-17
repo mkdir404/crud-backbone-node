@@ -1,0 +1,1 @@
+{"_id":"5258e0464199a1b80a000001","nombre":"Ricardooooooooo","username":"dadsdsdsd","email":"Email","apellido_paterno":"No lo seeeeee","apellido_materno":"No lo seeeeeeeee","genero":"hombre","foto":"ruta de foto","fecha_nacimiento":"09-02-03","password":"123","fecha_alta":"2013-10-17T02:29:37.030Z","rol_k":3}

@@ -1,7 +1,8 @@
 //File: routes/tvshows.js
 module.exports = function(app) {
 
-  var Usuarios = require('../models/usuarios.js');
+  var Usuarios = require('../models/usuarios.js'),
+      fs    = require('fs');
 
   //GET - Return all tvshows in the DB
   findAllUsers = function(req, res) {
@@ -60,49 +61,22 @@ module.exports = function(app) {
   	res.send(usuarios);
   };
 
-
-  /*
-
-  updateTVShow = function(req, res) {
-  TVShow.findById(req.params.id, function(err, tvshow) {
-    tvshow.title   = req.body.petId;
-    tvshow.year    = req.body.year;
-    tvshow.country = req.body.country;
-    tvshow.poster  = req.body.poster;
-    tvshow.seasons = req.body.seasons;
-    tvshow.genre   = req.body.genre;
-    tvshow.summary = req.body.summary;
-
-    tvshow.save(function(err) {
-      if(!err) {
-    console.log('Updated');
-      } else {
-    console.log('ERROR: ' + err);
-      }
-
-      res.send(tvshow);
-    });
-  });
-}
-
-
-
-  */
-
   //PUT - Update a register already exists
   updateUser = function(req, res) {
+
     Usuarios.findById(req.params.id, function(err, usuario) {
-      nombre            : req.body.nombre;
-      username          : req.body.username;
-      email             : req.body.email;
-      apellido_paterno  : req.body.apellido_paterno;
-      apellido_materno  : req.body.apellido_materno;
-      genero            : req.body.genero;
-      foto              : req.body.foto;
-      fecha_nacimiento  : req.body.fecha_nacimiento;
-      password          : req.body.password;
-      fecha_alta        : req.body.fecha_alta;
-      rol_k             : req.body.rol_k;
+      
+      usuario.nombre            = req.body.nombre;
+      usuario.username          = req.body.username;
+      usuario.email             = req.body.email;
+      usuario.apellido_paterno  = req.body.apellido_paterno;
+      usuario.apellido_materno  = req.body.apellido_materno;
+      usuario.genero            = req.body.genero;
+      usuario.foto              = req.body.foto;
+      usuario.fecha_nacimiento  = req.body.fecha_nacimiento;
+      usuario.password          = req.body.password;
+      usuario.fecha_alta        = req.body.fecha_alta;
+      usuario.rol_k             = req.body.rol_k;
 
   		usuario.save(function(err) {
   			if(!err) {
@@ -111,7 +85,9 @@ module.exports = function(app) {
   				console.log('ERROR: ' + err);
   			}
   			res.send(usuario);
-        console.log(usuario);
+
+        console.log(usuario)
+
   		});
   	});
   }
@@ -128,15 +104,6 @@ module.exports = function(app) {
   		})
   	});
   }
-
-
- paginator  = function(req , res ){
-    function printStudents(pageNumber, nPerPage) {
-   print("Page: " + pageNumber);
-   db.students.find().skip((pageNumber-1)*nPerPage).limit(nPerPage).forEach( function(student) { print(student.name + "<p>"); } );
-    }
- } 
-
 
   //Link routes and functions
   app.get('/usuarios', findAllUsers);

@@ -27,13 +27,13 @@
     <th></th>
    </tr>
 
-<% contt=1 %>
+
 <% _.each (projects , function(listItem){ %>
    <tr>
 
     
       <td><input type="checkbox" name="id-user" class="id-user" value="<%- listItem._id %>"> </td>
-      <td><% listItem._id %></td>
+      <td><%- listItem._id %></td>
       <td><%- listItem.username %></td>
       
       <td><% listItem.nombre + ' ' + 
@@ -51,17 +51,18 @@
 </table>
 
 <% cont=1 %>
-<% totalRows %>
-<ul class="pagination pull-right">
-<a class='nav-pag' id='prev' href="#">Prev</a>
-  <% _.each (projects , function(listItem){ %>
-      <% if(cont <= totalRows-1 ){ %>       
-           <li><a class="per-page" href="#" id="<%- (cont-1)*perPage %>"><%- cont++ %></a></li>
-      <% } %>
-      <% }); %> 
-  <a class='nav-pag' id='next' href="#">Next</a>  
-</ul>
-    </div>
+<% if(totalRows >= displayPages){t=displayPages}else{t=totalRows} %>
+<div class="pagination pull-right">
+  <ul>
+  <a class='nav-pag' id='prev'>Prev</a>
+    <% for(var i=1 ; i <= t;  ){ %>
+        <% if(cont <= totalRows ){ %>       
+             <li><a class="per-page" id="<%- (i-1)*perPage %>"><%- i++ %></a></li>
+        <% } %>
+      <% }; %> 
+    <a class='nav-pag' id='next'>Next</a>  
+  </ul>
+</div>
 
 
 
