@@ -6,7 +6,7 @@ define([
   
 
   var ProjectListView = Backbone.View.extend({
-    el: $("#contenedor"),
+    el: $(".contenedores"),
     
     paginator:{
 
@@ -35,9 +35,8 @@ define([
       'click  .btn-form-users' : 'saveUser',
       'click  .edit-user'      : 'editUser',
       'click  .icon-remove'    : 'deleteRows',
-      'click  .saveAll'        : 'saveCollect',
-      'click .per-page'        : 'perPage',
-      'click .nav-pag'         : 'nextPrev'
+      'click  .per-page'       : 'perPage',
+      'click  .nav-pag'        : 'nextPrev'
     },
 
     initialize:function(){
@@ -45,53 +44,34 @@ define([
         self.modelUsers       = new ModelUsers();
         self.collectionUsers  = new ProjectsCollection();
         self.currentDate      = new Date();
-
-        self.collectionUsers.on("change", function(user) {
-                console.log("Se añade el usuario " + user.get("nombre") + "!");
-                console.log(self.collectionUsers);
-                console.log(self.modelUsers);
-        });
-    },
-
-    saveCollect : function(){
-
-      self = this;
-
-      _.find(self.collectionUsers.models, function(cliente){                                         
-          Backbone.sync('create',cliente,{
-            success:function(user){
-              self.render();
-            },
-            error:function(error){
-            console.log(error);
-            }
-          });                                      
-      })
-
     },
 
     saveUser: function(){
  
   self.modelUsers.set({
-      "_id"              : "5258dee7d0f095880a000001",
-      "nombre"           : 'Ricardooooooooo',
-      "username"         : 'mkdir3030303030303',
-      "email"            : 'Email',
-      "apellido_paterno" : 'No lo seeeeee',
-      "apellido_materno" : 'No lo seeeeeeeee',
-      "genero"           : 'hombre',
-      "foto"             : 'ruta de foto',
-      "fecha_nacimiento" : '09-02-03',
-      "password"         : '123',
+      /*"_id"              : "5258dee7d0f095880a000001",*/ // set param when edit
+      "nombre"           : $('#nombre').val(),
+      "username"         : $('#username').val(),
+      "email"            : $('#password').val(),
+      "apellido_paterno" : $('#a_paterno').val(),
+      "apellido_materno" : $('#a_materno').val(),
+      "genero"           : $('#genero').val(),
+      "foto"             : 'xxxxx',
+      "fecha_nacimiento" : $('#dia').val() +'-'+ $('#mes').val() +'-'+ $('#anno').val(),
+      "password"         : $('#password').val(),
       "fecha_alta"       : self.currentDate ,
-      "rol_k"            : 3
+      "rol_k"            : $('#rol').val()
       });
   
   if (self.modelUsers.isNew()) {
             self.modelUsers.save(this.model, {
                 success:function () {
                     //app.navigate('wines/' + self.model.id, false);
-                    alert('se añadio un usuario');
+                    //alert('se añadio un usuario');
+                    $('#myModal').modal('hide');
+                   // self.render();
+                    $('#mensajes').append('<p>Exito</p>');
+
                 }
             });
         } else {
@@ -114,62 +94,6 @@ define([
     },
 
     editUser: function(ev){
-
-
-      Backbone.sync = function(method, model) {
-          alert(method + ": " + JSON.stringify(model));
-        };
-
-
-
-      var self = this;
-
-      var usuario =  new ModelUsers({id:ev.currentTarget.id});
-
-      usuario.save({
-
-        "nombre": "Espero se actualizacion",
-        "username": "Moooooduuufiiicaaadddoooo",
-        "email": "In.mi@erosnectellus.co.uk",
-        "apellido_paterno": "Burris, Uriah Q.",
-        "apellido_materno": "Peterson, Debra F.",
-        " rol_k": 2
-
-      },{
-          success:function(){
-            alert('se actualizo con exito ' + usuario.id);
-        }
-      });
-
-
-     /* modelUsers.update(ev.currentTarget.id);
-      modelUsers.set({
-
-      'nombre'            : 'Roberoooooooooo',
-      'username'          : 'Algo',
-      'email'             : 'algo@hotmail.com',
-      'apellido_paterno'  : 'Dame',
-      'apellido_materno'  : 'Perez',
-      'genero'            : 'Machin',
-      'foto'              : 'una futa a una imagen',
-      'fecha_nacimiento'  : '15-90-100',
-      'password'          : 'xxxxxx',
-      'fecha_alta'        : self.currentDate,
-      'rol_k'             : 1
-
-      });
-
-    
-    Backbone.sync('update',modelUsers,{
-        success:function(user){
-          alert('se actualizo');
-          console.dir(user);
-          self.render();
-        },
-        error:function(error){
-          alert('error');
-        }
-      });*/
 
     },
 
