@@ -2,7 +2,8 @@ define([
   'usuarios/collection/collection',
   'text!templates/list.html',
   'usuarios/model/model',
-], function(ProjectsCollection, projectsListTemplate , ModelUsers){
+  'usuarios/views/form'
+], function(ProjectsCollection, projectsListTemplate , ModelUsers , formUsuarioView){
   
 
   var ProjectListView = Backbone.View.extend({
@@ -32,87 +33,115 @@ define([
     },
 
     events:{
-      'click  .btn-form-users' : 'saveUser',
-      'click  .edit-user'      : 'editUser',
       'click  .icon-remove'    : 'deleteRows',
       'click  .per-page'       : 'perPage',
-      'click  .nav-pag'        : 'nextPrev'
+      'click  .nav-pag'        : 'nextPrev',
+      'click  .agrUsario'      : 'loadForm',
+      'click  #enviarUsuario'  : 'saveUpdate',
+      'click  .edit-user'      : 'ediUser'
     },
 
+
     initialize:function(){
-        self = this;
+        var self = this;
         self.modelUsers       = new ModelUsers();
         self.collectionUsers  = new ProjectsCollection();
         self.currentDate      = new Date();
+        
+        configForm = {
+              
+              name  : 'formUsuario' ,
+              title : 'Alta de Usuarios',
+              id    : 'formUsuario',
+              items : [{
+                    label : 'Nombre',
+                    type : 'text',
+                    name  : 'nombre',
+                    id    : 'nombre'
+              },{
+                  label : 'Apellido Paterno',
+                  type : 'text',
+                  name  : 'a-paterno',
+                  id    : 'a-paterno'
+
+              }],
+              buttons:[{
+                    name  : 'Guardar Usuario',
+                    id    : 'enviarUsuario'
+              }]
+
+            };
+
+        self.formUsuario      = new formUsuarioView(configForm);
+
     },
 
-    saveUser: function(){
- 
-  self.modelUsers.set({
-      /*"_id"              : "5258dee7d0f095880a000001",*/ // set param when edit
-      "nombre"           : $('#nombre').val(),
-      "username"         : $('#username').val(),
-      "email"            : $('#password').val(),
-      "apellido_paterno" : $('#a_paterno').val(),
-      "apellido_materno" : $('#a_materno').val(),
-      "genero"           : $('#genero').val(),
-      "foto"             : 'xxxxx',
-      "fecha_nacimiento" : $('#dia').val() +'-'+ $('#mes').val() +'-'+ $('#anno').val(),
-      "password"         : $('#password').val(),
-      "fecha_alta"       : self.currentDate ,
-      "rol_k"            : $('#rol').val()
-      });
-  
-  if (self.modelUsers.isNew()) {
-            self.modelUsers.save(this.model, {
-                success:function () {
-                    //app.navigate('wines/' + self.model.id, false);
-                    //alert('se añadio un usuario');
+    saveUpdate:function(){
+      //x = new ModelUsers()
+      var self = this,
+          obj = {
+          "nombre"           : $('#nombre').val(),
+          "username"         : $('#username').val(),
+          "email"            : $('#password').val(),
+          "apellido_paterno" : $('#a_paterno').val(),
+          "apellido_materno" : $('#a_materno').val(),
+          "genero"           : $('#genero').val(),
+          "foto"             : 'xxxxx',
+          "fecha_nacimiento" : $('#dia').val() +'-'+ $('#mes').val() +'-'+ $('#anno').val(),
+          "password"         : $('#password').val(),
+          "fecha_alta"       : self.currentDate ,
+          "rol_k"            : $('#rol').val()
+      };
+
+      if($('#id_user').val()!=''){ _.extend(obj, { _id: $('#id_user').val() }); }
+
+      self.modelUsers.set(obj);
+
+      if (self.modelUsers.isNew()) {
+                self.modelUsers.save(this.model, {
+                    success:function (data) {
+                        //alert('se añadio un usuario');
+                        $('#myModal').modal('hide');
+                         self.render();
+                    }
+                });
+            } else {
+                self.modelUsers.save(this.model , {
+                  success : function(data){
+                    //console.log(data);
                     $('#myModal').modal('hide');
-                   // self.render();
-                    $('#mensajes').append('<p>Exito</p>');
-
-                }
-            });
-        } else {
-            self.modelUsers.save(this.model , {
-              success : function(data){
-                console.log(data);
-              }
-            });
-            alert('se modifico el row correcatemnete');
-        }
-
-        /*self.modelUsers.save(this.model,{
-          success:function(){
-            alert('se guardo con exito');
-          }
-        });*/
-
-        return false;
-     
+                    self.render();
+                  }
+                });
+            }
     },
 
-    editUser: function(ev){
+    ediUser : function(ev){
+      
+      var self = this;
+      
+      self.modelUsers.set({_id:ev.currentTarget.id});
+      self.modelUsers.fetch().done(function(data){
+           self.formUsuario.render(data);
+      });
+    
+    },
 
+    loadForm:function(){
+      var self = this;
+      self.formUsuario.render();
     },
 
     deleteRows : function(ev) {
 
       var self = this;
-
-        self.modelUsers.update(ev.currentTarget.id);
-        Backbone.sync('delete',self.modelUsers,{
-            success:function(user){
-              alert('se elimino');
-              self.render();
-            },
-            error:function(error){
-              alert('error');
+      self.modelUsers.set({_id:ev.currentTarget.id});
+      self.modelUsers.destroy({
+            success:function (data) {
+                alert('Usuario deleted successfully');
+                self.render();
             }
           });
-
-         self.render();
     },
 
     perPage : function(ev){
@@ -136,7 +165,6 @@ define([
         }       
     },
 
-
     render: function(){
 
         var self = this;  
@@ -146,7 +174,7 @@ define([
                  self.paginator.totalPages = this.length;
              var compiledTemplate = _.template( projectsListTemplate,{ projects : perPage , totalRows : paginator , perPage : self.paginator.perPage , displayPages : self.paginator.displayPages  } );
                   self.$el.html(compiledTemplate);         
-       });
+       });            
 
         return self;
     }

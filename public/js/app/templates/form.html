@@ -1,0 +1,67 @@
+  <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">×</button>
+      <h3><%- items.title %></h3>
+  </div>
+
+  <div class="modal-body">
+
+     <form class="formulario-usuarios" id='<%- items.id %>'>
+
+        <fieldset>            
+           <!-- <% _.each (items.items , function(item){ %>
+                <label><%- item.label %></label>
+                <input name="<%- item.nombre %>" id="<%- item.id %>" type="<%- item.type %>">
+            <% }); %>     -->
+            <label>Nombre</label>
+            <input name="nombre" id="nombre" type="text" value="<%= params ? params.nombre : '' %>">
+            <label>UserName</label>
+            <input name="username" id="username" type="text" value="<%= params ? params.username : '' %>">                
+            <label>Apellido Paterno</label>
+            <input name="a_paterno" id="a_paterno" type="text" value="<%= params ? params.apellido_paterno : '' %>">
+            <label>Apellido Materno</label>
+            <input name="a_materno" id="a_materno" type="text" value="<%= params ? params.apellido_materno : '' %>">
+            <input name="id_user" id="id_user" type="text" value="<%= params ? params._id : '' %>" style='display:none'>
+            <!-- <label>Username</label>
+            <input name="username" id="username" type="text" >
+             <label>Password</label>
+            <input name="password " id="password" type="password" >
+            <label>Confirmar Password</label>
+            <input name="conf-password" id="conf-password" type="password" >
+             <label>Email</label>
+            <input name="email" id="email" type="text" >
+             <label>Genero</label>
+            <select name="genero" id="genero">
+              <option value="hombre">Hombre</option>
+              <option value="mujer">Mujer</option>
+            </select>
+            <label>Foto</label>
+           <input type="file" class="filestyle" data-classButton="btn btn-primary" data-input="false">
+            <label>Fecha de nacimiento</label>
+            <select name="dia" id="dia" class="span1">
+              <option value="1">Dia</option>
+            </select>
+             <select name="mes" id="mes" class="span1">
+              <option value="Enero">Mes</option>
+            </select>
+             <select name="anno" id="anno" class="span1">
+              <option value="1986">Año</option>
+            </select>
+            <label>Rol</label>
+            <select name="rol" id="rol">
+              <option value="1">Administrador</option>
+            </select>-->
+        </fieldset> 
+
+      </form> 
+
+  </div>   
+          
+  <div class="modal-footer">
+      <% _.each (items.buttons , function(button){ %>
+          <button class='btn' id='<%- button.id %>'><%- button.name %></button>
+          <a href="#" class="btn" data-dismiss="modal">Close</a>
+      <% }); %>             
+
+      <!--<button class="btn btn-form-users">Submit</button>-->
+          
+  </div>

@@ -86,8 +86,6 @@ module.exports = function(app) {
   			}
   			res.send(usuario);
 
-        console.log(usuario)
-
   		});
   	});
   }
@@ -101,6 +99,9 @@ module.exports = function(app) {
   			} else {
   				console.log('ERROR: ' + err);
   			}
+
+        res.send(usuario);
+
   		})
   	});
   }

@@ -6,11 +6,11 @@
 
 <div class="pull-right span4">
 
-  <button class="btn btn-primary pull-right"  style="margin-left:10px;" data-toggle="modal" href="#myModal" >Agregar</button>
+  <button class="btn btn-primary pull-right agrUsario"  style="margin-left:10px;" data-toggle="modal" href="#myModal" >Agregar</button>
   <form class="form-search pull-right">
     <div class="input-append">
       <input type="text" class="span2 search-query">
-      <button type="submit" class="btn">Search</button>
+      <button type="submit" class="btn buscar">Search</button>
     </div>
 </form>
 </div>
@@ -41,7 +41,7 @@
       <td><%- listItem.email %></td>
       <td><%- listItem.rol_k %></td>
       <td>1</td>
-      <td><i class="icon-remove" id="<%- listItem._id %>" ></i><i id="<%- listItem._id %>" class="icon-edit edit-user"></i></td>
+      <td><i class="icon-remove" id="<%- listItem._id %>" ></i><i id="<%- listItem._id %>" data-toggle="modal" href="#myModal" class="icon-edit edit-user"></i></td>
    </tr>
 
 <% }); %>   
@@ -64,69 +64,4 @@
   </ul>
 </div>
 
-
-<div class="alert alert-success hide" id='mensaje-exito' style='clear:both;'>
-  Exito !!! 
-</div>
-
-
-<div id='mensajes'></div>
-
-<div class="modal hide" id="myModal">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Alta de Usuario</h3>
-  </div>
-  <div class="modal-body">
-
-    <!-- Comienza formulario -->
-
-      <form class="formulario-usuarios">
-        <fieldset>
-            <label>Nombre</label>
-            <input name="nombre" id="nombre" type="text">
-            <label>Apellido Paterno</label>
-            <input name="nombre" id="a_paterno" type="text">
-            <label>Apellido Materno</label>
-            <input name="nombre" id="a_materno" type="text">
-             <label>Username</label>
-            <input name="username" id="username" type="text" >
-             <label>Password</label>
-            <input name="password " id="password" type="password" >
-            <label>Confirmar Password</label>
-            <input name="conf-password" id="conf-password" type="password" >
-             <label>Email</label>
-            <input name="email" id="email" type="text" >
-             <label>Genero</label>
-            <select name="genero" id="genero">
-              <option value="hombre">Hombre</option>
-              <option value="mujer">Mujer</option>
-            </select>
-            <label>Foto</label>
-           <input type="file" class="filestyle" data-classButton="btn btn-primary" data-input="false">
-            <label>Fecha de nacimiento</label>
-            <select name="dia" id="dia" class="span1">
-              <option value="1">Dia</option>
-            </select>
-             <select name="mes" id="mes" class="span1">
-              <option value="Enero">Mes</option>
-            </select>
-             <select name="anno" id="anno" class="span1">
-              <option value="1986">Año</option>
-            </select>
-            <label>Rol</label>
-            <select name="rol" id="rol">
-              <option value="1">Administrador</option>
-            </select>
-        </fieldset>  
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-form-users">Submit</button>
-          <a href="#" class="btn" data-dismiss="modal">Close</a>
-        </div>
-      </form>
-  
-    <!-- Termina formulario -->
-
-  </div>
-</div>
+<div class="modal hide" id="myModal"></div>
