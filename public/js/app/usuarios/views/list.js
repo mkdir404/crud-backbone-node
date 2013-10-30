@@ -80,6 +80,7 @@ define([
 
     saveUpdate:function(){
       //x = new ModelUsers()
+
       var self = this,
           obj = {
           "nombre"           : $('#nombre').val(),
@@ -96,12 +97,12 @@ define([
       };
 
       if($('#id_user').val()!=''){ _.extend(obj, { _id: $('#id_user').val() }); }
-      
+
       self.modelUsers.set(obj);
       $('.modal-body').find('b').remove();
       $("input[type=text], textarea").css("border-color",'#cccccc');
       
-      if(!self.modelUsers.isValid()){
+      /*if(!self.modelUsers.isValid()){
 
             console.log('error');
 
@@ -109,14 +110,16 @@ define([
             $('#'+error).css('border-color','red').after("<b> fuck you </b>");
           });
 
-      }else{
+      }else{*/
 
           if (self.modelUsers.isNew()) {
+
                     self.modelUsers.save(this.model, {
                         success:function (data) {
                             //alert('se añadio un usuario');
                             $('#myModal').modal('hide');
                              self.render();
+                             self.modelUsers.clear();
                         }
                     });
                 } else {
@@ -125,10 +128,11 @@ define([
                         //console.log(data);
                         $('#myModal').modal('hide');
                         self.render();
+                        self.modelUsers.clear();
                       }
                     });
                 }
-      }
+      //}
     },
 
     ediUser : function(ev){
