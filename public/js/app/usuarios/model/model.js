@@ -6,12 +6,18 @@ define([], function(){
       //  console.log(attr);
      },
      validate : function(attr,opt){
+        
+        var objerr = new Array();
+
         if(attr.nombre === ''){
-          return 'nombre';
+          objerr.push('nombre');
         }
         if(attr.username === ''){
-          return 'username';
+          objerr.push('username');
         }
+
+        if(objerr.length>0){ return objerr; }
+          
      }
   });
   // Return the model for the module

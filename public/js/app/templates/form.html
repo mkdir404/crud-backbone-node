@@ -26,7 +26,7 @@
              <label>Password</label>
             <input name="password " id="password" type="password" >
             <label>Confirmar Password</label>
-            <input name="conf-password" id="conf-password" type="password" >
+            <input name="conf-password" id="conf-password" type="password" >-->
              <label>Email</label>
             <input name="email" id="email" type="text" >
              <label>Genero</label>
@@ -34,7 +34,7 @@
               <option value="hombre">Hombre</option>
               <option value="mujer">Mujer</option>
             </select>
-            <label>Foto</label>
+            <!--<label>Foto</label>
            <input type="file" class="filestyle" data-classButton="btn btn-primary" data-input="false">
             <label>Fecha de nacimiento</label>
             <select name="dia" id="dia" class="span1">
@@ -58,7 +58,7 @@
           
   <div class="modal-footer">
       <% _.each (items.buttons , function(button){ %>
-          <button class='btn' id='<%- button.id %>'><%- button.name %></button>
+          <button class='btn <%= params ? 'btn-danger' : 'btn-primary' %> ' id='<%- button.id %>'><%= params ? 'Actualizar Usuario' : 'Guardar Usuario' %></button>
           <a href="#" class="btn" data-dismiss="modal">Close</a>
       <% }); %>             
 

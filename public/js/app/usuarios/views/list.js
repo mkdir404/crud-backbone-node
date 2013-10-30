@@ -2,8 +2,9 @@ define([
   'usuarios/collection/collection',
   'text!templates/list.html',
   'usuarios/model/model',
-  'usuarios/views/form'
-], function(ProjectsCollection, projectsListTemplate , ModelUsers , formUsuarioView){
+  'usuarios/views/form',
+  'usuarios/views/loading'
+], function(ProjectsCollection, projectsListTemplate  , ModelUsers , formUsuarioView , loadingMaskView){
   
 
   var ProjectListView = Backbone.View.extend({
@@ -73,6 +74,7 @@ define([
             };
 
         self.formUsuario      = new formUsuarioView(configForm);
+        self.loadingMask      = new loadingMaskView();
 
     },
 
@@ -94,26 +96,39 @@ define([
       };
 
       if($('#id_user').val()!=''){ _.extend(obj, { _id: $('#id_user').val() }); }
-
+      
       self.modelUsers.set(obj);
+      $('.modal-body').find('b').remove();
+      $("input[type=text], textarea").css("border-color",'#cccccc');
+      
+      if(!self.modelUsers.isValid()){
 
-      if (self.modelUsers.isNew()) {
-                self.modelUsers.save(this.model, {
-                    success:function (data) {
-                        //alert('se añadio un usuario');
+            console.log('error');
+
+          _.each(self.modelUsers.validationError,function(error){
+            $('#'+error).css('border-color','red').after("<b> fuck you </b>");
+          });
+
+      }else{
+
+          if (self.modelUsers.isNew()) {
+                    self.modelUsers.save(this.model, {
+                        success:function (data) {
+                            //alert('se añadio un usuario');
+                            $('#myModal').modal('hide');
+                             self.render();
+                        }
+                    });
+                } else {
+                    self.modelUsers.save(this.model , {
+                      success : function(data){
+                        //console.log(data);
                         $('#myModal').modal('hide');
-                         self.render();
-                    }
-                });
-            } else {
-                self.modelUsers.save(this.model , {
-                  success : function(data){
-                    //console.log(data);
-                    $('#myModal').modal('hide');
-                    self.render();
-                  }
-                });
-            }
+                        self.render();
+                      }
+                    });
+                }
+      }
     },
 
     ediUser : function(ev){
@@ -135,13 +150,17 @@ define([
     deleteRows : function(ev) {
 
       var self = this;
-      self.modelUsers.set({_id:ev.currentTarget.id});
-      self.modelUsers.destroy({
+
+      bootbox.confirm("¿ Esta seguro que deseas eliminar el usuario?", function(result) {
+            
+            self.modelUsers.set({_id:ev.currentTarget.id});
+            self.modelUsers.destroy({
             success:function (data) {
-                alert('Usuario deleted successfully');
+                //alert('Usuario deleted successfully');             
                 self.render();
             }
           });
+        });
     },
 
     perPage : function(ev){
@@ -167,14 +186,23 @@ define([
 
     render: function(){
 
-        var self = this;  
-        self.collectionUsers.fetch({context:this.collectionUsers}).done(function(collection) { 
+        var self = this;
+        self.loadingMask.showPleaseWait();
+
+        setTimeout(function(){
+
+            self.collectionUsers.fetch({context:this.collectionUsers}).done(function(collection) {            
              var perPage = collection.splice(self.paginator.currentPage, self.paginator.perPage );
              var paginator = Math.ceil(this.length / self.paginator.perPage);
-                 self.paginator.totalPages = this.length;
+             self.paginator.totalPages = this.length;
              var compiledTemplate = _.template( projectsListTemplate,{ projects : perPage , totalRows : paginator , perPage : self.paginator.perPage , displayPages : self.paginator.displayPages  } );
-                  self.$el.html(compiledTemplate);         
-       });            
+             self.$el.html(compiledTemplate);
+             self.loadingMask.hidePleaseWait();
+       });
+
+        },1000); /* esta funcion de tiempo solo es de prueba para verificar que esta cargando*/
+
+                 
 
         return self;
     }

@@ -4,7 +4,7 @@ define(['usuarios/views/list','usuarios/model/model'], function(ProjectListView,
     routes: {
       // Define some URL routes
       'projects': 'showProjects',
-      'users': 'showUsers',
+      'users'   : 'showUsers',
       'add-user':'addUser',
 
       // Default
