@@ -8,11 +8,11 @@ var usuarios = new Schema({
 	email			 : { type : String },
 	apellido_paterno : { type : String },
 	apellido_materno : { type : String },
-	genero			 : { type : String },
+	/*genero		 : { type : String },
 	foto			 : { type : String },
 	fecha_nacimiento : { type : String },	
 	password		 : { type : String },
-	fecha_alta		 : { type  : Date },
+	fecha_alta		 : { type  : Date },*/
 	rol_k		     : { type : Number }
 
 });

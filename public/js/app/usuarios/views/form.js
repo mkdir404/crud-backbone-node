@@ -25,9 +25,13 @@ define([
       console.log(params);
     },
 
+    metodo :function(){
+      alert(1);
+    },
+
     render: function(data){
       
-      var selt = this;
+      //var selt = this;
 
       $('#'+self.panelName).empty();
       self = this;

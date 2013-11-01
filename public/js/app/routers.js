@@ -1,11 +1,11 @@
-define(['usuarios/views/list','usuarios/model/model'], function(ProjectListView,ModelUsers){
+define(['usuarios/views/list','usuarios/model/model','usuarios/views/vista'], function(ProjectListView,ModelUsers , vistaNueva){
   
   var AppRouter = Backbone.Router.extend({
     routes: {
       // Define some URL routes
       'projects': 'showProjects',
       'users'   : 'showUsers',
-      'add-user':'addUser',
+      'add-user': 'addUser',
 
       // Default
       '*actions': 'defaultAction'
@@ -14,12 +14,15 @@ define(['usuarios/views/list','usuarios/model/model'], function(ProjectListView,
     showProjects : function(){
 
       var projectListView = new ProjectListView();
-          projectListView.render();
+      projectListView.render();
 
       //console.log(ProjectListView);
       
     },
     showUsers : function(){
+
+      var vista = new vistaNueva();
+      vista.render();
      
     },
 

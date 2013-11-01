@@ -9,7 +9,14 @@ define([
     },
 
     hidePleaseWait:function(){
-      this.maskload.modal('hide');
+
+      self = this;
+
+      setTimeout(function(){
+          self.maskload.modal('hide');
+      },1000); // solo es para mostrar el mensaje de carga 
+
+      
     },
 
     initialize: function(){

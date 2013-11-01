@@ -28,7 +28,7 @@ app.configure(function(){
 /*routes = require('./routes/tvshows')(app);*/
 routes = require('./routes/usuarios')(app);
 
-mongoose.connect('mongodb://localhost/cmsblog', function(err, res) {
+mongoose.connect('mongodb://localhost/otherdb', function(err, res) {
 	if(err) {
 		console.log('ERROR: connecting to Database. ' + err);
 	} else {

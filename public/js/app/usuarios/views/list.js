@@ -102,7 +102,7 @@ define([
       $('.modal-body').find('b').remove();
       $("input[type=text], textarea").css("border-color",'#cccccc');
       
-      /*if(!self.modelUsers.isValid()){
+      if(!self.modelUsers.isValid()){
 
             console.log('error');
 
@@ -110,7 +110,7 @@ define([
             $('#'+error).css('border-color','red').after("<b> fuck you </b>");
           });
 
-      }else{*/
+      }else{
 
           if (self.modelUsers.isNew()) {
 
@@ -132,7 +132,7 @@ define([
                       }
                     });
                 }
-      //}
+      }
     },
 
     ediUser : function(ev){
@@ -157,13 +157,17 @@ define([
 
       bootbox.confirm("¿ Esta seguro que deseas eliminar el usuario?", function(result) {
             
-            self.modelUsers.set({_id:ev.currentTarget.id});
-            self.modelUsers.destroy({
-            success:function (data) {
-                //alert('Usuario deleted successfully');             
-                self.render();
+            if(result){
+                  self.modelUsers.set({_id:ev.currentTarget.id});
+                  self.modelUsers.destroy({
+                      success:function (data){
+                          //alert('Usuario deleted successfully');             
+                          self.render();
+                          self.modelUsers.clear();
+                        }
+                  });
             }
-          });
+
         });
     },
 
@@ -191,22 +195,16 @@ define([
     render: function(){
 
         var self = this;
+        self.loadingMask.hidePleaseWait();
+        self.collectionUsers.fetch({context:this.collectionUsers}).done(function(collection) {            
+        var perPage = collection.splice(self.paginator.currentPage, self.paginator.perPage );
+        var paginator = Math.ceil(this.length / self.paginator.perPage);
+        self.paginator.totalPages = this.length;
+        var compiledTemplate = _.template( projectsListTemplate,{ projects : perPage , totalRows : paginator , perPage : self.paginator.perPage , displayPages : self.paginator.displayPages  } );
+        self.$el.html(compiledTemplate);
         self.loadingMask.showPleaseWait();
-
-        setTimeout(function(){
-
-            self.collectionUsers.fetch({context:this.collectionUsers}).done(function(collection) {            
-             var perPage = collection.splice(self.paginator.currentPage, self.paginator.perPage );
-             var paginator = Math.ceil(this.length / self.paginator.perPage);
-             self.paginator.totalPages = this.length;
-             var compiledTemplate = _.template( projectsListTemplate,{ projects : perPage , totalRows : paginator , perPage : self.paginator.perPage , displayPages : self.paginator.displayPages  } );
-             self.$el.html(compiledTemplate);
-             self.loadingMask.hidePleaseWait();
-       });
-
-        },1000); /* esta funcion de tiempo solo es de prueba para verificar que esta cargando*/
-
-                 
+             
+      });
 
         return self;
     }
